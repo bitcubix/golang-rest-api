@@ -1,4 +1,4 @@
-# RESTful API with zero dependencies in GO
+# RESTful API with few dependencies in GO
 
 ## Features
 
