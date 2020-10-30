@@ -24,8 +24,8 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig, config.SetDefaults)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./config.json)")
+	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./config_old.json)")
 }
 
 func initConfig() {
@@ -33,13 +33,14 @@ func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	} else {
-		viper.AddConfigPath(".")
+		viper.AddConfigPath(".") //TODO search better location
 		viper.SetConfigName("config")
 	}
 
 	viper.AutomaticEnv()
+	config.SetDefaults()
 
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
+	//TODO work with logger
+	_ = viper.SafeWriteConfig()
+	_ = viper.ReadInConfig()
 }
