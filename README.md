@@ -1,4 +1,5 @@
 # RESTful API written in GO
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/gabrielix29/go-rest-api)](https://pkg.go.dev/github.com/gabrielix29/go-rest-api)
 
 ## Features
 
