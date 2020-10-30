@@ -1,9 +1,10 @@
 package cmd
 
 import (
-	"fmt"
 	"github.com/gabrielix29/go-rest-api/config"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
+
+	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"

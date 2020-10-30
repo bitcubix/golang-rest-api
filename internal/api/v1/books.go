@@ -1,8 +1,9 @@
 package v1
 
 import (
-	"encoding/json"
 	"github.com/gabrielix29/go-rest-api/pkg/model"
+
+	"encoding/json"
 	"net/http"
 )
 
