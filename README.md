@@ -14,4 +14,4 @@
 
 * [ ] use gorm with postgresql
 
-* [ ] dockerize the application
+* [x] dockerize the application
