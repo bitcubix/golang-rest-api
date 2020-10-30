@@ -3,6 +3,7 @@ module github.com/gabrielix29/go-rest-api
 go 1.15
 
 require (
+	github.com/fatih/color v1.9.0
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/magiconair/properties v1.8.4 // indirect
