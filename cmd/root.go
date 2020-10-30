@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/gabrielix29/go-rest-api/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -23,7 +24,7 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
+	cobra.OnInitialize(initConfig, config.SetDefaults)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./config.json)")
 }
 
