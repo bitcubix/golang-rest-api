@@ -1,9 +1,10 @@
 package server
 
 import (
+	"github.com/gabrielix29/go-rest-api/pkg/logger"
+
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
-	"log"
 	"net/http"
 )
 
@@ -20,5 +21,6 @@ func New() *Server {
 func (s *Server) Run() {
 	s.initServices()
 	addr := viper.GetString("server.host") + ":" + viper.GetString("server.port")
-	log.Fatal(http.ListenAndServe(addr, s.Router))
+	logger.Info("HTTP Server started")
+	logger.Fatal(http.ListenAndServe(addr, s.Router))
 }

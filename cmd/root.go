@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/gabrielix29/go-rest-api/config"
+	"github.com/gabrielix29/go-rest-api/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -40,7 +41,8 @@ func initConfig() {
 	viper.AutomaticEnv()
 	config.SetDefaults()
 
-	//TODO work with logger
 	_ = viper.SafeWriteConfig()
-	_ = viper.ReadInConfig()
+	if err := viper.ReadInConfig(); err != nil {
+		logger.Error(err)
+	}
 }
