@@ -21,6 +21,6 @@ func New() *Server {
 func (s *Server) Run() {
 	s.initServices()
 	addr := viper.GetString("server.host") + ":" + viper.GetString("server.port")
-	logger.Info("HTTP Server started")
+	logger.Info("HTTP Server started listening on ", addr)
 	logger.Fatal(http.ListenAndServe(addr, s.Router))
 }
