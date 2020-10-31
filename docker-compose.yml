@@ -3,8 +3,10 @@ services:
   database:
     image: postgres
     restart: always
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=go-rest-api
     ports:
     - "5432:5432"
     volumes:
