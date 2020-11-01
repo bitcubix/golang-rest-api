@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
 	"net/http"
+	"golang.org/x/net/http2"
 )
 
 type Server struct {
@@ -23,12 +24,19 @@ func New() *Server {
 }
 
 func (s *Server) Run() {
-	s.InitDatabase()
-	s.initServices()
-	addr := viper.GetString("server.host") + ":" + viper.GetString("server.port")
-	logger.Info("HTTP Server started listening on ", addr)
-	logger.Fatal(http.ListenAndServe(addr, s.Router))
+        s.InitDatabase()
+        s.initServices()
+        addr := viper.GetString("server.host") + ":" + viper.GetString("server.port")
+        httpserver := &http.Server{
+                Addr: addr,
+                Handler: s.Router,
+        }
+        http2.ConfigureServer(httpserver, &http2.Server{})
+        logger.Info("HTTP Server started listening on ", addr)
+        logger.Fatal(httpserver.ListenAndServe())
 }
+
+
 
 func (s *Server) InitDatabase() {
 	var err error
