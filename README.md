@@ -12,6 +12,6 @@
 
 * [ ] implement author
 
-* [ ] use gorm with postgresql
+* [x] use gorm with mysql/mariadb
 
 * [x] dockerize the application
