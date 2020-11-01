@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"github.com/gorilla/mux"
@@ -38,8 +38,10 @@ func (s *Server) InitDatabase() {
 	port := viper.GetInt("database.port")
 	dbname := viper.GetString("database.name")
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", username, password, host, port, dbname)
-	s.Database, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	s.Database, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logger.Fatal(err)
+	}else{
+		logger.Debug("Connected to db")
 	}
 }
