@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
+
 	"net/http"
 )
 
@@ -13,6 +14,7 @@ func Json(next http.Handler) http.Handler {
 	})
 }
 
+// Logging middleware to log all requests for debugging
 func Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		logger.Debug(r.Method, " ", r.URL)

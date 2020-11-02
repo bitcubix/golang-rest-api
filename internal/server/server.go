@@ -3,11 +3,11 @@ package server
 import (
 	"github.com/gabrielix29/go-rest-api/internal/middlewares"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
-	"golang.org/x/net/http2"
 
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
+	"golang.org/x/net/http2"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
