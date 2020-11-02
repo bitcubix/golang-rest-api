@@ -10,6 +10,7 @@ import (
 	"golang.org/x/net/http2"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	gormLogger "gorm.io/gorm/logger"
 	"net/http"
 )
 
@@ -39,6 +40,10 @@ func (s *Server) Run() {
 
 func (s *Server) InitDatabase() {
 	var err error
+	config := gorm.Config{
+		Logger:      gormLogger.Default.LogMode(gormLogger.Silent),
+		PrepareStmt: true,
+	}
 	username := viper.GetString("database.username")
 	password := viper.GetString("database.password")
 	host := viper.GetString("database.host")
@@ -48,11 +53,11 @@ func (s *Server) InitDatabase() {
 	switch viper.GetString("database.driver") {
 	case "mysql":
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, host, port, dbname)
-		s.Database, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+		s.Database, err = gorm.Open(mysql.Open(dsn), &config)
 		break
 	case "postgres":
 		dsn := fmt.Sprintf("user=%s password=%s dbname=%s port=%s host=%s sslmode=disable", username, password, dbname, port, host)
-		s.Database, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		s.Database, err = gorm.Open(postgres.Open(dsn), &config)
 		break
 	default:
 		logger.Fatal("invalid database driver please use 'mysql' or 'postgresql'")
