@@ -4,6 +4,7 @@ import (
 	"github.com/gabrielix29/go-rest-api/internal/server"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
 	"github.com/gabrielix29/go-rest-api/pkg/model"
+
 	"github.com/spf13/cobra"
 )
 
