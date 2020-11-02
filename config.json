@@ -4,11 +4,12 @@
     "port": "8080"
   },
   "database":{
-    "username": "user",
+    "driver": "postgres",
+    "username": "dbuser",
     "password": "password",
     "host": "127.0.0.1",
     "port": "5432",
-    "name": "go-rest-api"
+    "name": "go_rest_api"
   },
   "logger": {
     "debug": true
