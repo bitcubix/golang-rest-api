@@ -14,6 +14,7 @@ func (api *API) InitBooks(database *gorm.DB) {
 	db = database
 
 	api.BaseRoutes.Books.HandleFunc("", getBooks).Methods("GET")
+	api.BaseRoutes.Books.HandleFunc("", createBook).Methods("POST")
 }
 
 func getBooks(w http.ResponseWriter, r *http.Request) {
@@ -21,8 +22,24 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 
 	books, _ := book.GetAll(db)
 
-	rsBytes, _ := json.Marshal(books)
-	w.WriteHeader(http.StatusNotImplemented)
-	w.Header().Add("content-type", "application/json")
-	w.Write(rsBytes)
+	response := Response{
+		Status:  http.StatusOK,
+		Message: "books found",
+		Data:    books,
+	}
+	response.Send(w)
+}
+
+func createBook(w http.ResponseWriter, r *http.Request) {
+	var book model.Book
+
+	_ = json.NewDecoder(r.Body).Decode(&book)
+	_ = book.Save(db)
+
+	response := Response{
+		Status:  http.StatusCreated,
+		Message: "book created successfully",
+		Data:    book,
+	}
+	response.Send(w)
 }
