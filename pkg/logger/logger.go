@@ -53,12 +53,12 @@ func Error(args ...interface{}) {
 func Fatal(args ...interface{}) {
 	col := color.New(color.FgHiBlack, color.BgRed, color.Bold).SprintfFunc()
 	logger.SetPrefix(col("FATAL\t"))
-	logger.Println(fmt.Sprint(args...))
+	logger.Fatal(fmt.Sprint(args...))
 }
 
 // logs Panic Errors
 func Panic(args ...interface{}) {
 	col := color.New(color.FgHiBlack, color.BgHiMagenta, color.Bold).SprintfFunc()
 	logger.SetPrefix(col("PANIC\t"))
-	logger.Println(fmt.Sprint(args...))
+	logger.Panic(fmt.Sprint(args...))
 }
