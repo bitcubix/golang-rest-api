@@ -4,33 +4,24 @@ import (
 	"github.com/gabrielix29/go-rest-api/pkg/model"
 
 	"encoding/json"
+	"gorm.io/gorm"
 	"net/http"
 )
 
-func (api *API) InitBooks() {
-	api.BaseRoutes.Books.HandleFunc("", createBook).Methods("POST")
+var db *gorm.DB
+
+func (api *API) InitBooks(database *gorm.DB) {
+	db = database
+
 	api.BaseRoutes.Books.HandleFunc("", getBooks).Methods("GET")
 }
 
-func createBook(w http.ResponseWriter, r *http.Request) {
-	rs := model.JSONResponseMin{
-		Status:  http.StatusNotImplemented,
-		Message: "Book not implemented",
-	}
-
-	rsBytes, _ := json.Marshal(&rs)
-	w.WriteHeader(http.StatusNotImplemented)
-	w.Header().Add("content-type", "application/json")
-	w.Write(rsBytes)
-}
-
 func getBooks(w http.ResponseWriter, r *http.Request) {
-	rs := model.JSONResponseMin{
-		Status:  http.StatusNotImplemented,
-		Message: "Book not implemented",
-	}
+	var book model.Book
 
-	rsBytes, _ := json.Marshal(&rs)
+	books, _ := book.GetAll(db)
+
+	rsBytes, _ := json.Marshal(books)
 	w.WriteHeader(http.StatusNotImplemented)
 	w.Header().Add("content-type", "application/json")
 	w.Write(rsBytes)

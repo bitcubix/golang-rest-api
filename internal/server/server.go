@@ -3,11 +3,11 @@ package server
 import (
 	"github.com/gabrielix29/go-rest-api/internal/middlewares"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
+	"golang.org/x/net/http2"
 
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
-	"golang.org/x/net/http2"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -38,7 +38,7 @@ func (s *Server) Run() {
 		Addr:    addr,
 		Handler: s.Router,
 	}
-	logger.Fatal(http2.ConfigureServer(httpserver, &http2.Server{}))
+	_ = http2.ConfigureServer(httpserver, &http2.Server{})
 	logger.Info("HTTP Server started listening on ", addr)
 	logger.Fatal(httpserver.ListenAndServe())
 }
@@ -69,7 +69,7 @@ func (s *Server) InitDatabase() {
 	}
 
 	if err != nil {
-		logger.Fatal(err)
+		logger.Fatal(err, " lol")
 	} else {
 		logger.Debug("Connected to database")
 	}
