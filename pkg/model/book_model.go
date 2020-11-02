@@ -1,13 +1,18 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Book struct {
-	gorm.Model
-	ISBN        string `json:"isbn"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Author      string `json:"author"`
+	ID          uint      `gorm:"primarykey;autoincrement"`
+	ISBN        string    `json:"isbn"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Author      string    `json:"author"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 //TODO validation
@@ -27,6 +32,16 @@ func (b *Book) Save(db *gorm.DB) error {
 	var err error
 
 	err = db.Create(b).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (b *Book) GetByID(db *gorm.DB, id uint) error {
+	var err error
+
+	err = db.Where(&Book{ID: id}).First(b).Error
 	if err != nil {
 		return err
 	}
