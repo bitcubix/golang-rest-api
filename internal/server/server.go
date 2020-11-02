@@ -1,14 +1,15 @@
 package server
 
 import (
+	"github.com/gabrielix29/go-rest-api/internal/middlewares"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
-	"gorm.io/driver/postgres"
 
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
 	"golang.org/x/net/http2"
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	gormLogger "gorm.io/gorm/logger"
 	"net/http"
@@ -28,12 +29,16 @@ func New() *Server {
 func (s *Server) Run() {
 	s.InitDatabase()
 	s.initServices()
+	s.Router.Use(middlewares.Json)
+	if viper.GetBool("logger.debug") {
+		s.Router.Use(middlewares.Logging)
+	}
 	addr := viper.GetString("server.host") + ":" + viper.GetString("server.port")
 	httpserver := &http.Server{
 		Addr:    addr,
 		Handler: s.Router,
 	}
-	http2.ConfigureServer(httpserver, &http2.Server{})
+	logger.Fatal(http2.ConfigureServer(httpserver, &http2.Server{}))
 	logger.Info("HTTP Server started listening on ", addr)
 	logger.Fatal(httpserver.ListenAndServe())
 }
