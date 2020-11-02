@@ -4,11 +4,11 @@
     "port": "8080"
   },
   "database":{
-    "driver": "postgres",
+    "driver": "mysql",
     "username": "dbuser",
     "password": "password",
     "host": "127.0.0.1",
-    "port": "5432",
+    "port": "3306",
     "name": "go_rest_api"
   },
   "logger": {
