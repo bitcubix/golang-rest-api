@@ -1,7 +1,7 @@
 package server
 
-import v1 "github.com/gabrielix29/go-rest-api/internal/api/v1"
+import "github.com/gabrielix29/go-rest-api/internal/api"
 
 func (s *Server) initServices() {
-	v1.Init(s.Router)
+	api.Init(s.Router)
 }

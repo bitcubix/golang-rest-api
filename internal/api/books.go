@@ -1,4 +1,4 @@
-package v1
+package api
 
 import (
 	"github.com/gabrielix29/go-rest-api/pkg/model"
