@@ -10,7 +10,7 @@ type Book struct {
 	ISBN        string    `json:"isbn"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	Author      string    `json:"author"`
+	AuthorID    uint      `json:"author_id"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -56,6 +56,17 @@ func (b *Book) GetByISBN(db *gorm.DB, isbn string) error {
 		return err
 	}
 	return nil
+}
+
+func (b *Book) GetByAuthorID(db *gorm.DB, authorID int) (*[]Book, error) {
+	var err error
+	var books []Book
+
+	err = db.Where(&Book{AuthorID: uint(authorID)}).Find(&books).Error
+	if err != nil {
+		return nil, err
+	}
+	return &books, nil
 }
 
 func (b *Book) Update(db *gorm.DB, id int) error {
