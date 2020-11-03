@@ -10,7 +10,7 @@
 * [x] `PUT /books/:id` update book
 * [x] `DELETE /books/:id` delete single book
 
-* [ ] implement author
+* [x] implement author
 
 * [x] use gorm with mysql/mariadb
 
