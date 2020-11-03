@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"encoding/json"
 	"github.com/gabrielix29/go-rest-api/pkg/logger"
+
+	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
 )

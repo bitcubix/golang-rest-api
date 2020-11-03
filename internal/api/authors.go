@@ -1,9 +1,10 @@
 package api
 
 import (
-	"encoding/json"
 	"github.com/gabrielix29/go-rest-api/pkg/model"
 	"github.com/gabrielix29/go-rest-api/pkg/utils"
+
+	"encoding/json"
 	"net/http"
 	"strconv"
 )

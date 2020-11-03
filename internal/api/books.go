@@ -3,10 +3,10 @@ package api
 import (
 	"github.com/gabrielix29/go-rest-api/pkg/model"
 	"github.com/gabrielix29/go-rest-api/pkg/utils"
-	"strconv"
 
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 
 func (api *API) InitBooks() {
