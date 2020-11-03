@@ -6,15 +6,10 @@ import (
 	"strconv"
 
 	"encoding/json"
-	"gorm.io/gorm"
 	"net/http"
 )
 
-var db *gorm.DB
-
-func (api *API) InitBooks(database *gorm.DB) {
-	db = database
-
+func (api *API) InitBooks() {
 	api.BaseRoutes.Books.HandleFunc("/", getBooks).Methods("GET")
 	api.BaseRoutes.Books.HandleFunc("/", createBook).Methods("POST")
 	api.BaseRoutes.Books.HandleFunc("/{id}", getBook).Methods("GET")
