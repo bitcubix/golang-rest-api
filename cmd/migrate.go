@@ -15,7 +15,10 @@ var migrateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		serve := server.New()
 		serve.InitDatabase()
-		err := serve.Database.AutoMigrate(&model.Book{})
+		err := serve.Database.AutoMigrate(
+			&model.Book{},
+			&model.Author{},
+		)
 		if err != nil {
 			logger.Fatal(err)
 		}
