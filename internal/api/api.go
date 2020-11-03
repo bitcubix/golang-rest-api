@@ -1,10 +1,8 @@
 package api
 
 import (
-	"encoding/json"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
-	"net/http"
 )
 
 type API struct {
@@ -17,12 +15,6 @@ type Routes struct {
 	ApiRoot *mux.Router
 
 	Books *mux.Router
-}
-
-type Response struct {
-	Status  int         `json:"status"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
 }
 
 func Init(root *mux.Router, database *gorm.DB) *API {
@@ -38,11 +30,4 @@ func Init(root *mux.Router, database *gorm.DB) *API {
 	api.InitBooks(api.Database)
 
 	return &api
-}
-
-func (r *Response) Send(w http.ResponseWriter) {
-	w.WriteHeader(r.Status)
-	bytes, _ := json.Marshal(r)
-	_, _ = w.Write(bytes)
-	//TODO error response
 }

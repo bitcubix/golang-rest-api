@@ -61,6 +61,8 @@ func (b *Book) GetByISBN(db *gorm.DB, isbn string) error {
 func (b *Book) Update(db *gorm.DB, id int) error {
 	var err error
 
+	b.ID = uint(id)
+	b.UpdatedAt = time.Now()
 	err = db.Model(b).Where(id).Updates(b).Error
 	if err != nil {
 		return err
