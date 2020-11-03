@@ -23,9 +23,12 @@ func (a *Author) GetAll(db *gorm.DB) (*[]Author, error) {
 		return nil, err
 	}
 
-	for _, author := range authors {
-		ab, _ := book.GetByAuthorID(db, int(author.ID))
-		author.Books = ab
+	for k, author := range authors {
+		author.Books, err = book.GetByAuthorID(db, int(author.ID))
+		if err != nil {
+			return nil, err
+		}
+		authors[k] = author
 	}
 
 	return &authors, nil
@@ -43,8 +46,14 @@ func (a *Author) Save(db *gorm.DB) error {
 
 func (a *Author) GetByID(db *gorm.DB, id uint) error {
 	var err error
+	var book Book
 
 	err = db.Where(&Author{ID: id}).First(a).Error
+	if err != nil {
+		return err
+	}
+
+	a.Books, err = book.GetByAuthorID(db, int(id))
 	if err != nil {
 		return err
 	}
