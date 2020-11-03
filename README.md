@@ -3,12 +3,12 @@
 
 ## Features
 
-* [ ] `GET /` link to documentation etc.
-* [ ] `GET /books` list of all lists 
-* [ ] `GET /books7:id` get single book
-* [ ] `POST /books` create new book
-* [ ] `PUT /books/:id` update book
-* [ ] `DELETE /books/:id` delete single book
+* [x] `GET /` link to documentation etc.
+* [x] `GET /books` list of all lists 
+* [x] `POST /books` create new book
+* [x] `GET /books/:id` get single book
+* [x] `PUT /books/:id` update book
+* [x] `DELETE /books/:id` delete single book
 
 * [ ] implement author
 
