@@ -69,7 +69,7 @@ func (s *Server) InitDatabase() {
 	}
 
 	if err != nil {
-		logger.Fatal(err, " lol")
+		logger.Fatal(err)
 	} else {
 		logger.Debug("Connected to database")
 	}
