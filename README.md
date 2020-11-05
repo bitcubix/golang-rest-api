@@ -12,7 +12,7 @@ docker-compose up
 - get a domain name and create dns A record to your WAN IP
 - on your router: create port forwarding for http and https to your debian10 system 
 - copy the bash script to your debian10 system and execute it as normal user:
-[bash script](https://github.com/MystixCode/install_go-rest-api)
+[bash script](https://github.com/MystixCode/install_go_api)
 
 ## API endpoints
 - `GET /books/` list of all books
