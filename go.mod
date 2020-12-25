@@ -3,7 +3,6 @@ module github.com/bitcubix/go-rest-api-boilerplate
 go 1.15
 
 require (
-	github.com/google/uuid v1.1.2
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
 	github.com/pkg/errors v0.8.1
