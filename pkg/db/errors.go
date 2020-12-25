@@ -3,5 +3,6 @@ package db
 import "errors"
 
 var (
-	ErrUnknownDriver = errors.New("database driver unknown")
+	ErrDBConnectionFailed = errors.New("connection to database failed")
+	ErrUnknownDriver      = errors.New("database driver unknown")
 )
