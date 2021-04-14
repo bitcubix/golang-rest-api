@@ -4,12 +4,13 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/bitcubix/golang-rest-api/internal/api"
 	"github.com/bitcubix/golang-rest-api/internal/config"
 	"github.com/bitcubix/golang-rest-api/internal/services"
 	"github.com/bitcubix/golang-rest-api/pkg/db"
+	"github.com/bitcubix/golang-rest-api/pkg/errors"
 	"github.com/bitcubix/golang-rest-api/pkg/log"
 	"github.com/bitcubix/golang-rest-api/pkg/mux"
-	"github.com/pkg/errors"
 )
 
 type Server struct {
@@ -19,6 +20,7 @@ type Server struct {
 	DB       *db.Connection
 	Router   *mux.Router
 	Services *services.Services
+	API      *api.API
 }
 
 func New() (*Server, error) {
@@ -50,6 +52,7 @@ func New() (*Server, error) {
 	}
 
 	server.setupServices()
+	server.setupAPI()
 	server.setupRouter()
 
 	return server, nil

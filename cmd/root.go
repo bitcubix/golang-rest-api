@@ -1,20 +1,24 @@
 package cmd
 
-import (
-	"github.com/bitcubix/golang-rest-api/pkg/cli"
-)
+import "github.com/spf13/cobra"
 
-var rootCmd = cli.NewCommand(
-	"golang-rest-api",
-	"RESTful API Boilerplate written in GO",
-	"",
-)
+var ConfigFile string
+
+var rootCmd = &cobra.Command{
+	Use:   "golang-rest-api",
+	Short: "RESTful API Boilerplate written in GO",
+}
 
 func Execute() {
-	cli.CheckErr(rootCmd.Execute())
+	cobra.CheckErr(rootCmd.Execute())
 }
 
 func init() {
-	// TODO rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./config.yaml)")
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.PersistentFlags().StringVarP(
+		&ConfigFile,
+		"file",
+		"f",
+		"",
+		"set the path for config file",
+	)
 }
