@@ -55,8 +55,8 @@ func Load() *Config {
 	}
 }
 
-// LoadFromViper loads config from the right config file
-func LoadFromViper(file string) string {
+// LoadFromFile loads config from the right config file
+func LoadFromFile(file string) string {
 	conf.AddConfigPath("./")
 	conf.SetConfigName("config")
 
