@@ -54,21 +54,33 @@ func ParseLevel(level string) (Level, error) {
 
 // Logger implementation is responsible for providing structured and leveled
 // logging functions.
+// Logger implementation is responsible for providing structured and levled
+// logging functions.
 type Logger interface {
 	Debug(args ...interface{})
-	Debugf(format string, args ...interface{})
-	Info(args ...interface{})
-	Infof(format string, args ...interface{})
-	Warn(args ...interface{})
-	Warnf(format string, args ...interface{})
-	Error(args ...interface{})
-	Errorf(format string, args ...interface{})
-	Fatal(args ...interface{})
-	Fatalf(format string, args ...interface{})
-	Panic(args ...interface{})
-	Panicf(format string, args ...interface{})
+	Debugln(args ...interface{})
+	Debugf(msg string, args ...interface{})
+	Infof(msg string, args ...interface{})
+	Info(msg string)
+	Infoln(...interface{})
+	Warn(msg string)
+	Warnln(...interface{})
+	Warnf(msg string, args ...interface{})
+	Error(msg string)
+	Errorf(msg string, args ...interface{})
+	Fatalf(msg string, args ...interface{})
+	Print(args ...interface{})
+	Printf(msg string, args ...interface{})
+	Println(...interface{})
+	Trace(args ...interface{})
+	Tracef(msg string, args ...interface{})
+	Traceln(...interface{})
+	Verbose() bool
 
-	WithFields(fields map[string]interface{}) Logger
+	// WithFields should return a logger which is annotated with the given
+	// fields. These fields should be added to every logging call on the
+	// returned logger.
+	WithFields(m map[string]interface{}) Logger
 	WithPrefix(prefix string) Logger
 
 	Level() Level
@@ -130,6 +142,26 @@ func (l *logrusLogger) WithFields(fields map[string]interface{}) Logger {
 // WithPrefix should return a logger which is annotated with the given prefix
 func (l *logrusLogger) WithPrefix(prefix string) Logger {
 	return l.WithFields(Fields{"prefix": prefix})
+}
+
+func (ll *logrusLogger) Error(msg string) {
+	ll.Errorf(msg)
+}
+
+func (ll *logrusLogger) Info(msg string) {
+	ll.Infof(msg)
+}
+
+func (ll *logrusLogger) Print(args ...interface{}) {
+	ll.Debug(args...)
+}
+
+func (ll *logrusLogger) Warn(msg string) {
+	ll.Warnf(msg)
+}
+
+func (ll *logrusLogger) Verbose() bool {
+	return ll.Entry.Logger.GetLevel().String() == "debug"
 }
 
 // getFormatter returns the default log formatter.
